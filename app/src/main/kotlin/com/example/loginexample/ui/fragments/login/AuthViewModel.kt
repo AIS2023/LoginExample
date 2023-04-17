@@ -88,23 +88,23 @@ class AuthViewModel @ViewModelInject constructor(private val authRepository: Aut
     fun registerUser(view: View) {
         when {
             firstName.value.isNullOrEmpty() -> {
-                state_listener?.onError("Enter first name")
+                state_listener?.onError("Enter first name")     // Move the message to a separate constant and name it according to the upper case style
                 return
             }
             lastName.value.isNullOrEmpty() -> {
-                state_listener?.onError("Enter last name")
+                state_listener?.onError("Enter last name")      // Move the message to a separate constant and name it according to the upper case style
                 return
             }
             emailAddress.value.isNullOrEmpty() -> {
-                state_listener?.onError("Enter email address")
+                state_listener?.onError("Enter email address")  // Move the message to a separate constant and name it according to the upper case style
                 return
             }
             phoneNumber.value.isNullOrEmpty() -> {
-                state_listener?.onError("Enter phone number")
+                state_listener?.onError("Enter phone number")   // Move the message to a separate constant and name it according to the upper case style
                 return
             }
             password.value.isNullOrEmpty() -> {
-                state_listener?.onError("Enter password")
+                state_listener?.onError("Enter password")       // Move the message to a separate constant and name it according to the upper case style
                 return
             }
         }
