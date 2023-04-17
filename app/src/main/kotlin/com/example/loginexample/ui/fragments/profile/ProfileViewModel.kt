@@ -16,7 +16,7 @@ class ProfileViewModel @ViewModelInject constructor(private val authRepository: 
     var stateListener: StateListener? = null
 
     private val _loggedInUser = MutableLiveData<User>()
-    val logged_in_user = _loggedInUser
+    val logged_in_user = _loggedInUser                          // The variable "logged_in_user" should be written in the camel case style
 
     init {
         getLoggedInUser()
