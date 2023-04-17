@@ -16,6 +16,7 @@ import com.example.loginexample.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
+/* class name should be in Pascal Casing */
 class homeFragment : Fragment(), StateListener {
 
     private lateinit var binding: FragmentHomeBinding
