@@ -14,6 +14,7 @@ import com.example.loginexample.util.StateListener
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
+/* add comments for all the methods in this class*/
 class AuthViewModel @ViewModelInject constructor(private val authRepository: AuthRepository) :
     ViewModel(), Observable {
     /* use camel casing for the variable state_listener */
