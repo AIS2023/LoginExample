@@ -16,6 +16,7 @@ import com.example.loginexample.util.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
+/* class name should be in Pascal Casing */
 class registrationFragment : Fragment(), StateListener {
 
     private lateinit var binding: FragmentRegistrationBinding
