@@ -14,7 +14,7 @@ import com.example.loginexample.util.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class loginFragment : Fragment(), StateListener {
+class loginFragment : Fragment(), StateListener {           // The name of the class "loginFragment" should be written in Pascal casing
 
     private lateinit var binding: FragmentLoginBinding
     private val viewModel by viewModels<AuthViewModel>()
