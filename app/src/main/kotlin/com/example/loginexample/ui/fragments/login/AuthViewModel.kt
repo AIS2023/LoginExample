@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 
 class AuthViewModel @ViewModelInject constructor(private val authRepository: AuthRepository) :
     ViewModel(), Observable {
-
+    /* use camel casing for the variable state_listener */
     var state_listener: StateListener? = null
 
     @Bindable
@@ -38,22 +38,23 @@ class AuthViewModel @ViewModelInject constructor(private val authRepository: Aut
         state_listener?.onLoading()
 
         if (emailAddress.value.isNullOrEmpty()) {
-            state_listener?.onError("Enter email address")
+            state_listener?.onError("Enter email address") /* define constants for validation messages */
             return
         } else if (password.value.isNullOrEmpty()) {
-            state_listener?.onError("Enter password")
+            state_listener?.onError("Enter password") /* define constants for validation messages */
             return
         }
 
 
         viewModelScope.launch {
             try {
+                /* use camel casing for the variable is_user_exist */
                 val is_user_exist = authRepository.checkUser(emailAddress.value!!)
                 is_user_exist.collect { user ->
                     when {
                         (emailAddress.value !=
                                 user?.email) -> {
-                            state_listener?.onError("User account not found")
+                            state_listener?.onError("User account not found") /* define constants for validation messages */
                             return@collect
                         }
                         else -> {
@@ -63,7 +64,7 @@ class AuthViewModel @ViewModelInject constructor(private val authRepository: Aut
                             loginResponse.collect { user ->
                                 when {
                                     (password.value != user?.password) -> {
-                                        state_listener?.onError("Incorrect password")
+                                        state_listener?.onError("Incorrect password") /* define constants for validation messages */
                                         return@collect
                                     }
                                     else -> {
