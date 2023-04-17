@@ -29,7 +29,7 @@ class HomeViewModel @ViewModelInject constructor(
 
         viewModelScope.launch {
             try {
-                val user_response = authRepository.getLoggedInUser()
+                val user_response = authRepository.getLoggedInUser()            // The variable "user_response" should be written in the camel case style
                 user_response.collect { user ->
                     _loggedInUser.value = user
                 }
