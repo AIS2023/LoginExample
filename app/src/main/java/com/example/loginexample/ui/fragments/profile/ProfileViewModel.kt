@@ -1,4 +1,4 @@
-package com.example.loginexample.ui.fragments.home
+package com.example.loginexample.ui.fragments.profile
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
@@ -10,9 +10,7 @@ import com.example.loginexample.util.StateListener
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class HomeViewModel @ViewModelInject constructor(
-    private val authRepository: AuthRepository
-    ) :
+class ProfileViewModel @ViewModelInject constructor(private val authRepository: AuthRepository) :
     ViewModel() {
 
     var stateListener: StateListener? = null
@@ -29,12 +27,33 @@ class HomeViewModel @ViewModelInject constructor(
 
         viewModelScope.launch {
             try {
-                val user_response = authRepository.getLoggedInUser()
-                user_response.collect { user ->
+                val userResponse = authRepository.getLoggedInUser()
+                userResponse.collect { user ->
                     _loggedInUser.value = user
                 }
 
                 stateListener?.onSuccess("Fetched logged in user")
+                return@launch
+            } catch (e: Exception) {
+                stateListener?.onError(e.message!!)
+                return@launch
+            }
+        }
+    }
+
+    fun logOutUser() {
+        stateListener?.onLoading()
+
+        viewModelScope.launch {
+            try {
+
+                val userResponse = authRepository.getLoggedInUser()
+                userResponse.collect { user ->
+                    _loggedInUser.value = user
+                    authRepository.setUserLoggedOut(user.email)
+                }
+
+                stateListener?.onSuccess("Logging out user")
                 return@launch
             } catch (e: Exception) {
                 stateListener?.onError(e.message!!)

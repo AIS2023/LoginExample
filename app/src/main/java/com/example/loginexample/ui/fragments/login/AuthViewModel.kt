@@ -10,6 +10,7 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.loginexample.models.User
 import com.example.loginexample.repository.AuthRepository
+import com.example.loginexample.ui.fragments.*
 import com.example.loginexample.util.StateListener
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -17,7 +18,7 @@ import kotlinx.coroutines.launch
 class AuthViewModel @ViewModelInject constructor(private val authRepository: AuthRepository) :
     ViewModel(), Observable {
 
-    var state_listener: StateListener? = null
+    var stateListener: StateListener? = null
 
     @Bindable
     val firstName = MutableLiveData<String>()
@@ -35,25 +36,25 @@ class AuthViewModel @ViewModelInject constructor(private val authRepository: Aut
     val password = MutableLiveData<String>()
 
     fun loginUser(view: View) {
-        state_listener?.onLoading()
+        stateListener?.onLoading()
 
         if (emailAddress.value.isNullOrEmpty()) {
-            state_listener?.onError("Enter email address")
+            stateListener?.onError(ENTER_EMAIL_ADDRESS)
             return
         } else if (password.value.isNullOrEmpty()) {
-            state_listener?.onError("Enter password")
+            stateListener?.onError(ENTER_PASSWORD)
             return
         }
 
 
         viewModelScope.launch {
             try {
-                val is_user_exist = authRepository.checkUser(emailAddress.value!!)
-                is_user_exist.collect { user ->
+                val isUserExist = authRepository.checkUser(emailAddress.value!!)
+                isUserExist.collect { user ->
                     when {
                         (emailAddress.value !=
                                 user?.email) -> {
-                            state_listener?.onError("User account not found")
+                            stateListener?.onError(USER_ACCOUNT_NOT_FOUND)
                             return@collect
                         }
                         else -> {
@@ -63,11 +64,11 @@ class AuthViewModel @ViewModelInject constructor(private val authRepository: Aut
                             loginResponse.collect { user ->
                                 when {
                                     (password.value != user?.password) -> {
-                                        state_listener?.onError("Incorrect password")
+                                        stateListener?.onError(INCORRECT_PASSWORD)
                                         return@collect
                                     }
                                     else -> {
-                                        state_listener?.onSuccess("Welcome, ${user?.firstName} ${user?.lastName}")
+                                        stateListener?.onSuccess("Welcome, ${user?.firstName} ${user?.lastName}")
 
                                         authRepository.setUserLoggedIn(emailAddress.value!!)
 
@@ -79,7 +80,7 @@ class AuthViewModel @ViewModelInject constructor(private val authRepository: Aut
                     }
                 }
             } catch (e: Exception) {
-                state_listener?.onError(e.message!!)
+                stateListener?.onError(e.message!!)
                 return@launch
             }
         }
@@ -88,23 +89,23 @@ class AuthViewModel @ViewModelInject constructor(private val authRepository: Aut
     fun registerUser(view: View) {
         when {
             firstName.value.isNullOrEmpty() -> {
-                state_listener?.onError("Enter first name")
+                stateListener?.onError(ENTER_FIRST_NAME)
                 return
             }
             lastName.value.isNullOrEmpty() -> {
-                state_listener?.onError("Enter last name")
+                stateListener?.onError(ENTER_LAST_NAME)
                 return
             }
             emailAddress.value.isNullOrEmpty() -> {
-                state_listener?.onError("Enter email address")
+                stateListener?.onError(ENTER_EMAIL_ADDRESS)
                 return
             }
             phoneNumber.value.isNullOrEmpty() -> {
-                state_listener?.onError("Enter phone number")
+                stateListener?.onError(ENTER_PHONE_NUMBER)
                 return
             }
             password.value.isNullOrEmpty() -> {
-                state_listener?.onError("Enter password")
+                stateListener?.onError(ENTER_PASSWORD)
                 return
             }
         }
@@ -123,13 +124,13 @@ class AuthViewModel @ViewModelInject constructor(private val authRepository: Aut
 
                 authRepository.registerUser(user)
 
-                state_listener?.onSuccess("Welcome, ${firstName.value} ${lastName.value}")
+                stateListener?.onSuccess("Welcome, ${firstName.value} ${lastName.value}")
 
                 authRepository.setUserLoggedIn(emailAddress.value!!)
 
                 return@launch
             } catch (e: Exception) {
-                state_listener?.onError(e.message!!)
+                stateListener?.onError(e.message!!)
                 return@launch
             }
         }

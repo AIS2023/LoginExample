@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import com.example.loginexample.R
 import com.example.loginexample.databinding.FragmentHomeBinding
 import com.example.loginexample.util.StateListener
@@ -16,7 +15,7 @@ import com.example.loginexample.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class homeFragment : Fragment(), StateListener {
+class HomeFragment : Fragment(), StateListener {
 
     private lateinit var binding: FragmentHomeBinding
     private val viewModel by viewModels<HomeViewModel>()

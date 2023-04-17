@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.loginexample.R
 import com.example.loginexample.databinding.FragmentProfileBinding
-import com.example.loginexample.ui.fragments.login.AuthViewModel
 import com.example.loginexample.util.*
 import dagger.hilt.android.AndroidEntryPoint
 

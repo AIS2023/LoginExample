@@ -14,7 +14,7 @@ import com.example.loginexample.ui.fragments.login.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class splashFragment : Fragment() {
+class SplashFragment : Fragment() {
 
     private lateinit var binding: FragmentSplashBinding
     private val viewModel by viewModels<AuthViewModel>()
