@@ -16,11 +16,13 @@ import com.example.loginexample.util.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
+/* class name should be in Pascal Casing */
 class registrationFragment : Fragment(), StateListener {
 
     private lateinit var binding: FragmentRegistrationBinding
     private val viewModel by viewModels<AuthViewModel>()
-
+    
+    /* add comments for all the methods in this class*/
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

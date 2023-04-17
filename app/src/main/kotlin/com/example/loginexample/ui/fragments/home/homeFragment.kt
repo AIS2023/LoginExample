@@ -16,11 +16,13 @@ import com.example.loginexample.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
+/* class name should be in Pascal Casing */
 class homeFragment : Fragment(), StateListener {
 
     private lateinit var binding: FragmentHomeBinding
     private val viewModel by viewModels<HomeViewModel>()
 
+    /* add comments for all the methods in this class*/
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
